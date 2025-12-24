@@ -1,6 +1,6 @@
 from django.urls import path ,include
 from .import views
-from .views import register ,LoginView,all_artists, subscribe 
+from .views import PlaylistDetailAPI, PlaylistListAPI, register ,LoginView,all_artists, subscribe 
 from .views import artist_detail,user_profile,playlist_detail,album_detail
 from .views import library_view,search,song_list,song_detail
 from .views import SongCrudView,ArtistCrudView,GenreCrudView, AlbumCrudView, CustomUserCrudView
@@ -20,6 +20,9 @@ urlpatterns = [
     path('add_album/', views.add_album, name='add_album'),
     path('albums/', views.album_list, name='album_list'),
     path('album/<int:album_id>/', views.album_detail, name='album_detail'),
+    path("api/playlists/", PlaylistListAPI.as_view(), name="playlist-list"),
+    path("api/playlist/<int:playlist_id>/", PlaylistDetailAPI.as_view(), name="playlist-detail"),
+
     
     path('playlist/<int:playlist_id>/', views.playlist_detail, name='playlist_detail'),
     path('profile/update/', views.profile_update, name='profile_update'),
@@ -55,7 +58,7 @@ urlpatterns = [
     path('password_reset_done/', views.password_reset_done, name='passwordresetdone'),
 
     
-    
+    path('api/songs/', views.song_list_api, name='song-list-api'),
     
     ]
     

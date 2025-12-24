@@ -3,26 +3,24 @@
 
 {% block body %}
 <style>
-    /* General Body Style */
-    body {
+\    body {
         font-family: 'Arial', sans-serif;
-        background-color: #121212; /* Dark background */
-        color: #e0e0e0; /* Light text */
+        background-color: #121212; 
+        color: #e0e0e0; 
         margin: 0;
         padding: 0;
         text-align: center;
     }
 
-    /* Header Styles */
+    
     h1 {
-        color: #FFD700; /* Golden text */
+        color: #FFD700;
         font-weight: bold;
-        text-transform: uppercase; /* Make header dramatic */
+        text-transform: uppercase; 
         letter-spacing: 1px;
-        font-size: 2.5em; /* Bigger header for impact */
+        font-size: 2.5em; 
     }
 
-    /* Subscription Plans Container */
     .plans-container {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -32,23 +30,22 @@
         margin: 0 auto;
     }
 
-    /* Plan Card Styling */
     .plan-card {
         background-color: #1f1f1f;
         border-radius: 20px;
         padding: 25px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Strong shadow for depth */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         text-align: center;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .plan-card:hover {
-        transform: scale(1.05); /* Slight zoom effect on hover */
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7); /* Deep shadow on hover */
+        transform: scale(1.05); 
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7); 
     }
 
     .plan-name {
-        color: #FFD700; /* Golden text for the plan name */
+        color: #FFD700;
         font-size: 1.5em;
         font-weight: bold;
         margin-bottom: 10px;
@@ -86,8 +83,7 @@
         <div class="plan-card">
             <h3 class="plan-name">{{ plan.name }}</h3>
             <p class="plan-price">${{ plan.price }} for {{ plan.duration }} days</p>
-            <!-- Add a link to subscribe to this plan -->
-            <a href="{% url 'subscribe' %}?plan_id={{ plan.id }}">Subscribe Now</a>
+         <a href="{% url 'subscribe' %}?plan_id={{ plan.id }}">Subscribe Now</a>
         </div>
     {% endfor %}
 </div>

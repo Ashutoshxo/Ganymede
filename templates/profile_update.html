@@ -7,7 +7,6 @@
 <div class="container mt-5">
     <h1 class="text-center mb-4">Update Your Profile</h1>
     
-    <!-- Profile Picture Section -->
     <div class="text-center mb-4">
         {% if request.user.profile_picture %}
             <img src="{{ request.user.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded-circle" style="max-width: 150px; height: auto;">
@@ -25,64 +24,57 @@
     </div>
     
 
-    <!-- Profile Update Form -->
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         
-        <!-- Form Fields -->
         {{ form.as_p }}  
 
-        <!-- Submit Button -->
         <div class="form-control text-center">
-            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="submit" class="btn btn-primary" {% url 'user_profile' %} >Save Changes</button>
         </div>
     </form>
 
-    <!-- Back to Profile Link -->
     <div class="text-center mt-3">
         <a href="{% url 'user_profile' %}" class="btn btn-secondary">Back to Profile</a>
     </div>
 </div>
 <style>
-    /* General Body Style */
     body {
         font-family: 'Roboto', sans-serif;
-        background-color: #121212;  /* Dark background for the page */
-        color: #e0e0e0;  /* Light text color */
+        background-color: #121212;  
+        color: #e0e0e0;  
         margin: 0;
         padding: 0;
     }
     
-    /* Container for the Form */
     .container {
-        background-color: #1e1e1e;  /* Dark background for the form */
+        background-color: #1e1e1e;  
         border-radius: 16px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);  /* Deep shadow for a floating effect */
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);  
         padding: 40px;
         width: 100%;
         max-width: 500px;
-        color: #f4f4f9;  /* Light text inside the form */
-        margin: 60px auto;  /* Space from the top */
+        color: #f4f4f9;  
+        margin: 60px auto;  
         transition: all 0.3s ease;
     }
     
     .container:hover {
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);  /* Stronger shadow on hover */
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);  
     }
     
-    /* Header Styling */
+   
     h1 {
         font-size: 2.5em;
-        color: #FFD700;  /* Vibrant gold color */
+        color: #FFD700; 
         margin-bottom: 25px;
         text-align: center;
         font-weight: 800;
         letter-spacing: 1.5px;
         text-transform: uppercase;
-        text-shadow: 2px 2px 5px rgba(255, 215, 0, 0.7);  /* Subtle glow effect */
+        text-shadow: 2px 2px 5px rgba(255, 215, 0, 0.7); 
     }
     
-    /* Form Control Styling */
     .form-control {
         margin-bottom: 20px;
     }
@@ -95,9 +87,6 @@
         font-weight: 600;
     }
     
-    /* Input Fields */
-    .form-control input,
-    .form-control select,
     .form-control textarea {
         width: 100%;
         padding: 14px;
@@ -110,9 +99,7 @@
         transition: all 0.3s ease;
     }
     
-    /* Focused Input Fields */
-    .form-control input:focus,
-    .form-control select:focus,
+    
     .form-control textarea:focus {
         border-color: #FFD700;
         background-color: #333;
@@ -120,7 +107,6 @@
         box-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
     }
     
-    /* Submit Button Styling */
     button {
         background: linear-gradient(45deg, #FF4500, #FFD700); 
         color: white;
@@ -139,7 +125,6 @@
         box-shadow: 0 6px 15px rgba(255, 140, 0, 0.8);  
     }
     
-    /* Link Styling (Back to Profile) */
     a {
         text-decoration: none;
         color: #FFD700;
@@ -155,7 +140,6 @@
         color: #FF4500;  
     }
     
-    /* Profile Picture Styling */
     .profile-picture {
         width: 120px;
         height: 120px;
@@ -165,24 +149,20 @@
         overflow: hidden;
         box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); 
         transition: all 0.3s ease;
-    }
+    } 
     
     .profile-picture:hover {
-        transform: scale(1.05);  /* Slight zoom on hover */
+        transform: scale(1.05);  
         box-shadow: 0 0 25px rgba(255, 215, 0, 0.7);  
     }
     
-    /* Profile Picture Image */
     .profile-picture img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.3s ease;
     }
-    
-    /* Form Section Hover Effects */
-    .form-control input:hover,
-    .form-control select:hover,
+   
     .form-control textarea:hover {
         background-color: #333;
         border-color: #FFD700;

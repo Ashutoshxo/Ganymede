@@ -6,16 +6,15 @@
   
     <h1 class="display-4 text-warning mb-4 text-shadow">Genres</h1>
 
-    <!-- Genre Cards Section -->
+   
     <div class="row">
         {% for genre in genres %}
         <div class="col-md-4 mb-4">
-            <!-- Card -->
+        
             <div class="card text-center shadow-lg transform-card">
                 <div class="card-body bg-dark text-white rounded-lg">
                     <h5 class="card-title text-light">{{ genre.name }}</h5>
                     
-                    <!-- Display songs for each genre -->
                     <ul class="list-unstyled">
                         {% for song in genre.song_set.all %}
                             <li class="mb-2">
@@ -33,13 +32,11 @@
         {% endfor %}
     </div>
 
-    <!-- Return Button -->
     <div class="text-center mt-4">
         <a href="{% url 'home' %}" class="btn btn-warning btn-lg shadow-lg hover-shadow">Return HOME</a>
     </div>
 </div>
 
-<!-- Bootstrap and Icons (for play button) -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 
@@ -48,7 +45,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
-    /* Body Styles */
+    
     body {
         font-family: 'Arial', sans-serif;
         background-color: #121212; /* Dark background for better contrast */
@@ -58,7 +55,7 @@
         text-align: center;
     }
 
-    /* Title */
+   
     h1 {
         font-family: 'Arial', sans-serif;
         font-weight: bold;
@@ -66,41 +63,38 @@
         letter-spacing: 1px;
     }
 
-    /* Card Style */
     .card {
         border: none;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Strong shadow for more depth */
-        transition: transform 0.3s, box-shadow 0.3s ease; /* Smooth scaling and shadow transition */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s ease; 
         border-radius: 15px;
     }
 
     .card:hover {
-        transform: scale(1.05); /* Slightly enlarge the card on hover */
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+        transform: scale(1.05); 
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
     }
 
     .card-body {
-        background-color: #343a40; /* Dark background for the card body */
+        background-color: #343a40; 
         border-radius: 15px;
     }
 
-    /* Song Link Hover Effects */
     .hover-link {
-        color: #ffd700; /* Golden color */
+        color: #ffd700; 
         font-weight: 500;
         text-decoration: none;
         transition: color 0.3s ease, transform 0.2s ease-in-out;
     }
 
     .hover-link:hover {
-        color: #ff6347; /* Tomato color on hover */
+        color: #ff6347; 
         transform: scale(1.05);
         text-decoration: underline;
     }
 
-    /* Return Button Styling */
     .btn-warning {
-        background-color: #ff6347; /* Tomato color */
+        background-color: #ff6347;
         border-color: #ff6347;
         padding: 15px 30px;
         font-size: 18px;
@@ -108,7 +102,7 @@
     }
 
     .btn-warning:hover {
-        background-color: #ff4500; /* Darker red */
+        background-color: #ff4500; 
         border-color: #ff4500;
     }
 
@@ -116,7 +110,6 @@
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
-    /* Icon Style for Play Button */
     .bi-play-circle {
         font-size: 1.2rem;
         color: #ffd700;
@@ -128,12 +121,10 @@
         color: #ff6347;
     }
 
-    /* General Layout */
     .container {
         max-width: 1200px;
     }
 
-    /* Responsive Design */
     @media (max-width: 767px) {
         .card {
             margin-top: 10px;

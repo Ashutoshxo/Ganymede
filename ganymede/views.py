@@ -9,6 +9,9 @@ from .models import FavoriteSong, FavoriteAlbum, ArtistFollow
 
 
 
+
+
+
 from django.contrib.auth.models import User
 
 from .forms import RegisterForm , LoginForm , SubscriptionForm 
@@ -303,11 +306,19 @@ def profile_update(request):
 
 
 
+# views.py
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from .models import Song
+from .serializers import SongSerializer
 
-def song_list(request):
-    songs = Song.objects.all()  
-    return render(request, 'song_list.html', {'songs': songs})
+@api_view(['GET'])
+def song_list_api(request):
+    songs = Song.objects.all()
+    serializer = SongSerializer(songs, many=True)
+    return Response(serializer.data)
+
+
 
 
 
@@ -343,20 +354,25 @@ def search(request):
 
 
 
+from django.contrib.auth.models import AnonymousUser
+
 def artist_detail(request, artist_id):
     artist = get_object_or_404(Artist, id=artist_id)
-    
-    is_following = ArtistFollow.objects.filter(user=request.user, artist=artist).exists()
-    follower_count = ArtistFollow.objects.filter(artist=artist).count()
 
+    is_following = False
+    if request.user.is_authenticated:
+        is_following = ArtistFollow.objects.filter(user=request.user, artist=artist).exists()
+
+    follower_count = ArtistFollow.objects.filter(artist=artist).count()
     show_full_bio = request.GET.get('show_full_bio') == 'true'
 
     return render(request, 'artist_detail.html', {
         'artist': artist,
         'is_following': is_following,
         'follower_count': follower_count,
-        'show_full_bio': show_full_bio  
+        'show_full_bio': show_full_bio
     })
+
 
 
 @login_required
@@ -804,3 +820,31 @@ def reset_password(request, uidb64, token):
 def password_reset_done(request):
     return render(request, 'password_reset_done.html')
 #****************************************************************************************************
+
+
+class PlaylistListAPI(APIView):
+    def get(self, request):
+        playlists = Playlist.objects.all()
+        data = []
+        for p in playlists:
+            data.append({
+                "id": p.id,
+                "name": p.name,
+                "cover_image": p.cover_image.url if p.cover_image else None,
+            })
+        return Response(data)
+
+class PlaylistDetailAPI(APIView):
+    def get(self, request, playlist_id):
+        try:
+            playlist = Playlist.objects.get(id=playlist_id)
+            songs = playlist.songs.all()
+            serializer = SongSerializer(songs, many=True)
+            return Response({
+                "id": playlist.id,
+                "name": playlist.name,
+                "cover_image": playlist.cover_image.url if playlist.cover_image else None,
+                "songs": serializer.data
+            })
+        except Playlist.DoesNotExist:
+            return Response({"error": "Playlist not found"}, status=404)

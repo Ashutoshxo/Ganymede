@@ -87,11 +87,11 @@
  
 
 <style>
-   /* General Styles */
+   
 .search-results {
     font-family: 'Helvetica Neue', sans-serif;
     color: #333;
-    background: linear-gradient(to right, #f9f9f9, #e0e0e0); /* Light gradient background */
+    background: linear-gradient(to right, #f9f9f9, #e0e0e0); 
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -241,7 +241,6 @@
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-    /* Make the artist-item display in a vertical stack on smaller screens */
     .artist-item {
         flex-direction: column;
         text-align: center;
@@ -257,8 +256,7 @@
         max-width: 100%;
     }
 
-    /* Adjust album-item to be in a single column layout */
-    .album-item {
+\    .album-item {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -275,14 +273,12 @@
         padding: 10px;
     }
 
-    /* Pagination adjustment for smaller screens */
-    .pagination {
+\    .pagination {
         margin-top: 20px;
     }
 }
 
 @media (max-width: 480px) {
-    /* Further adjustments for very small screens (phones) */
     .search-results {
         padding: 20px;
     }
