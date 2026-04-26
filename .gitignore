@@ -57,3 +57,5 @@ build/
 # =====================
 .cache/
 .pytest_cache/
+
+antares_backup.sql

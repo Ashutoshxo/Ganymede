@@ -10,8 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-u&v!8hmzuois&(wbm3%z@-b!_r=n()tvm4j4u36gs=hgt7!6+@'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key-change-me')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '10.0.2.2']
 
@@ -89,11 +93,11 @@ WSGI_APPLICATION = 'antares.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "antares",
-        "USER": "root",
-        "PASSWORD": "asgrich",
-        "HOST": "localhost",
-        "PORT": "3306",
+        "NAME": os.getenv("DB_NAME", "antares"),
+        "USER": os.getenv("DB_USER", "root"),
+        "PASSWORD": os.getenv("DB_PASSWORD", ""),
+        "HOST": os.getenv("DB_HOST", "localhost"),
+        "PORT": os.getenv("DB_PORT", "3306"),
     }
 }
 
@@ -148,7 +152,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 AUTH_USER_MODEL = 'ganymede.CustomUser' 
 
 
-PAYPAL_RECEIVER_EMAIL = 'sb-7yqwv27298129@business.example.com'
+PAYPAL_RECEIVER_EMAIL = os.getenv('PAYPAL_RECEIVER_EMAIL', '')
 PAYPAL_TEST = True  
 PAYPAL_SANDBOX_MODE = True
 
@@ -157,7 +161,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp-relay.sendinblue.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = '838160001@smtp-brevo.com'
-EMAIL_HOST_PASSWORD = 'WsQwvUEa58dL46Az'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = 'ashutoshxoxo@gmail.com'
 

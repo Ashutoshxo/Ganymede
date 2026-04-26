@@ -113,7 +113,7 @@ def custom_logout(request):
 
 
 def home(request):
-    artists = Artist.objects.all()[:5]
+    artists = Artist.objects.all()[:10]
     genres = Genre.objects.all()[:2]
     albums = Album.objects.all()[5:]
     playlists = Playlist.objects.prefetch_related('songs',).all()
