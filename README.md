@@ -1,95 +1,110 @@
-# Ganymede - Music Website
+# 🎵 Ganymede - Music Website
 
-Ganymede is a web application designed to provide a seamless music browsing and playing experience. Built with modern web technologies, it offers an intuitive and interactive interface for users to explore and enjoy music directly from the web. Whether you're looking to listen to your favorite tracks or discover new music, Ganymede aims to provide a user-friendly environment.
+Ganymede is a sophisticated web application designed to provide a seamless and immersive music browsing and playing experience. Built with modern web technologies and a focus on user experience, it offers an intuitive interface for users to explore, discover, and enjoy their favorite tracks directly from the browser.
 
-## Table of Contents
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Folder Structure](#folder-structure)
-- [Contributing](#contributing)
-- [License](#license)
+---
 
-## Features
-- **Music Browsing**: Easily browse and search through music tracks.
-- **Track Player**: Play music tracks with a simple and responsive audio player.
-- **Modern UI**: A clean and minimal interface designed for an enjoyable user experience.
-- **Responsive**: Optimized for both desktop and mobile devices.
-- **Playlist Support**: Users can create and manage playlists.
-- **Track Details**: Displays information about each music track, including title, artist, album, and duration.
+## ✨ Visual Showcase
 
-## Technologies Used
-- **HTML**: For the structure and layout of the pages.
-- **CSS**: For styling the website and ensuring a responsive design.
-- **JavaScript**: To handle client-side interactivity, such as music playback and dynamic content loading.
-- **Python**: For backend functionality (if applicable).
-- **Django/Flask (optional)**: If used for backend framework (specify accordingly).
-- **AJAX**: For fetching music data without refreshing the page (if applicable).
+### 🏠 Home Page - New Releases
+![Home - New Releases](Screenshot/Screenshot%202026-05-07%20124124.png)
 
-## Installation
+### 🎨 Discover Artists
+![Home - Artists](Screenshot/Screenshot%202026-05-07%20124145.png)
 
-To get started with the project locally, follow these steps:
+### 📈 Popular Tracks
+![Home - Popular Tracks](Screenshot/Screenshot%202026-05-07%20124214.png)
+
+### 🎧 Immersive Audio Player
+![Song Details](Screenshot/Screenshot%202026-05-07%20124240.png)
+
+### 🔍 Advanced Search
+![Search Results](Screenshot/Screenshot%202026-05-07%20124400.png)
+
+---
+
+## 🚀 Features
+
+-   **Music Browsing**: Easily browse and search through a vast collection of music tracks.
+-   **Interactive Player**: A full-featured, responsive audio player with playback controls and progress tracking.
+-   **Modern UI/UX**: A clean, dark-themed, and minimal interface designed for an enjoyable user experience.
+-   **Dynamic Content**: Real-time updates and smooth transitions using modern JavaScript.
+-   **Responsive Design**: Optimized for a flawless experience across desktop, tablet, and mobile devices.
+-   **Artist & Album Details**: Comprehensive information for every track, including high-quality album art and metadata.
+
+---
+
+## 🛠️ Technologies Used
+
+-   **Backend**: Python / Django
+-   **Frontend**: HTML5, CSS3, JavaScript (ES6+)
+-   **Styling**: Custom CSS for a premium dark-mode aesthetic
+-   **Interactivity**: AJAX for seamless content loading and music playback
+-   **Database**: PostgreSQL / SQLite (configurable)
+
+---
+
+## ⚙️ Installation
+
+To get started with Ganymede locally, follow these steps:
 
 ### Prerequisites
 
-Before you begin, ensure you have the following installed:
-
-- **Python 3.x**: You can download it from [python.org](https://www.python.org/downloads/).
-- **pip**: Python's package installer (should come with Python).
-- **Git**: For version control. You can download it from [git-scm.com](https://git-scm.com/).
+Ensure you have the following installed:
+- **Python 3.x**
+- **pip** (Python package manager)
+- **Git**
 
 ### Step-by-Step Setup
 
-1. **Clone the repository**:
+1.  **Clone the repository**:
     ```bash
     git clone https://github.com/Ashutoshxo/Ganymede-.git
     cd Ganymede-
     ```
 
-2. **Set up a virtual environment** (recommended for Python projects):
+2.  **Set up a virtual environment**:
     ```bash
     python -m venv venv
-    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+    # On Windows:
+    venv\Scripts\activate
+    # On macOS/Linux:
+    source venv/bin/activate
     ```
 
-3. **Install dependencies**:
-    If the project includes a `requirements.txt` file for Python dependencies, install them with:
+3.  **Install dependencies**:
     ```bash
     pip install -r requirements.txt
     ```
 
-4. **Run the application**:
-    If the project uses Django or Flask for the backend, you can start the server with:
+4.  **Database Migration**:
     ```bash
-    python manage.py runserver  # Django
-    # or
-    flask run  # Flask (if applicable)
-    ```
-    Visit `http://localhost:8000/` or the appropriate address in your web browser to view the application.
-
-5. **For frontend-only**: If you only need to run the frontend portion, simply open the `index.html` file in your browser:
-    ```bash
-    open index.html  # or double-click the file in your file explorer
+    python manage.py migrate
     ```
 
-## Usage
+5.  **Run the application**:
+    ```bash
+    python manage.py runserver
+    ```
+    Visit `http://localhost:8000/` in your browser.
 
-Once the application is running, you can navigate through the following functionalities:
+---
 
-1. **Browse Music**: Use the navigation bar to explore music by categories such as genre, artist, or album.
-2. **Play Tracks**: Click on any track to start playing it using the integrated audio player.
-3. **Create Playlists**: You can add music tracks to your playlist to keep your favorite songs in one place.
-4. **Search**: Use the search feature to quickly find specific tracks, artists, or albums.
-5. **Responsive Design**: The website adjusts to various screen sizes, making it user-friendly on both desktop and mobile devices.
+## 📖 Usage
 
-### Example
+1.  **Explore**: Use the sidebar and homepage to discover "New Releases" and "Popular Tracks".
+2.  **Search**: Use the search bar at the top to find specific artists, albums, or songs.
+3.  **Listen**: Click on any track or use the "Play Now" button on the song details page to start the player.
+4.  **Manage**: Create playlists and manage your library (if logged in).
 
-Once logged in (if applicable), the user can browse the music collection, add songs to their playlist, and start playing any track they like:
+---
 
-```plaintext
-1. Browse by Genre
-2. Browse by Artist
-3. Search for a Track
-4. Add to Playlist
-5. Play Music
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
