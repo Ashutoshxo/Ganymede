@@ -18,13 +18,23 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          command_timeout: 15m
           script: |
             cd ~
             if [ -d "Ganymede" ]; then
               cd Ganymede && git pull
             else
-              git clone https://github.com/${{ github.repository }}.git Ganymede
+              git clone https://github.com/Ashutoshxo/Ganymede.git Ganymede
               cd Ganymede
             fi
+            
+            # Create Swap memory (0 Extra Cost)
+            if [ ! -f /swapfile ]; then
+              sudo fallocate -l 2G /swapfile
+              sudo chmod 600 /swapfile
+              sudo mkswap /swapfile
+              sudo swapon /swapfile
+            fi
+
             docker compose down || true
             docker compose up --build -d
