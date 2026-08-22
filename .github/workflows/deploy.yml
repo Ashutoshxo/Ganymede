@@ -20,11 +20,11 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~
-            if [ -d "Anatres" ]; then
-              cd Anatres && git pull
+            if [ -d "Ganymede" ]; then
+              cd Ganymede && git pull
             else
-              git clone https://github.com/${{ github.repository }}.git Anatres
-              cd Anatres
+              git clone https://github.com/${{ github.repository }}.git Ganymede
+              cd Ganymede
             fi
-            docker-compose down || true
-            docker-compose up --build -d
+            docker compose down || true
+            docker compose up --build -d
