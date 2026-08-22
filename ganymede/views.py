@@ -50,7 +50,7 @@ from rest_framework.response import Response
 
 from rest_framework.views import APIView
 
-from .serializers import SongSerializer, ArtistSerializer, GenreSerializer, AlbumSerializer
+from .serializers import SongSerializer, ArtistSerializer, GenreSerializer, AlbumSerializer, PlaylistSerializer
 from .serializers import CustomUserSerializer
 
 from django.core.mail import send_mail
@@ -62,7 +62,9 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_str 
 from django.utils.http import urlsafe_base64_decode
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 
@@ -82,6 +84,55 @@ def register(request):
     else:
         form = RegisterForm()
     return render(request, 'register.html', {'form': form})
+
+
+@csrf_exempt
+def register_api(request):
+    if request.method != 'POST':
+        return JsonResponse({'message': 'Method not allowed.'}, status=405)
+
+    try:
+        data = json.loads(request.body)
+    except (TypeError, json.JSONDecodeError):
+        return JsonResponse({'message': 'Invalid request body.'}, status=400)
+
+    form = RegisterForm(data={
+        'username': data.get('username', '').strip(),
+        'email': data.get('email', '').strip(),
+        'password1': data.get('password1', ''),
+        'password2': data.get('password2', ''),
+    })
+    if not form.is_valid():
+        return JsonResponse({'errors': form.errors.get_json_data()}, status=400)
+
+    user = form.save()
+    login(request, user)
+    return JsonResponse({'message': 'Account created successfully.'}, status=201)
+
+
+@csrf_exempt
+def login_api(request):
+    if request.method != 'POST':
+        return JsonResponse({'message': 'Method not allowed.'}, status=405)
+
+    try:
+        data = json.loads(request.body)
+    except (TypeError, json.JSONDecodeError):
+        return JsonResponse({'message': 'Invalid request body.'}, status=400)
+
+    identifier = data.get('username', '').strip()
+    password = data.get('password', '')
+    username = identifier
+    if '@' in identifier:
+        user = get_user_model().objects.filter(email__iexact=identifier).first()
+        username = user.username if user else identifier
+
+    user = authenticate(request, username=username, password=password)
+    if user is None:
+        return JsonResponse({'message': 'Username/email or password is incorrect.'}, status=400)
+
+    login(request, user)
+    return JsonResponse({'message': 'Logged in successfully.'})
 
 #login
 
@@ -314,8 +365,29 @@ from .serializers import SongSerializer
 
 @api_view(['GET'])
 def song_list_api(request):
-    songs = Song.objects.all()
-    serializer = SongSerializer(songs, many=True)
+    songs = Song.objects.select_related('artist', 'album', 'genre').all()
+    serializer = SongSerializer(songs, many=True, context={'request': request})
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def artist_list_api(request):
+    artists = Artist.objects.all().order_by('name')
+    serializer = ArtistSerializer(artists, many=True, context={'request': request})
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def album_list_api(request):
+    albums = Album.objects.select_related('artist').prefetch_related('songs').all().order_by('title')
+    serializer = AlbumSerializer(albums, many=True, context={'request': request})
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def genre_list_api(request):
+    genres = Genre.objects.all().order_by('name')
+    serializer = GenreSerializer(genres, many=True)
     return Response(serializer.data)
 
 
@@ -824,26 +896,21 @@ def password_reset_done(request):
 
 class PlaylistListAPI(APIView):
     def get(self, request):
-        playlists = Playlist.objects.all()
-        data = []
-        for p in playlists:
-            data.append({
-                "id": p.id,
-                "name": p.name,
-                "cover_image": p.cover_image.url if p.cover_image else None,
-            })
-        return Response(data)
+        playlists = Playlist.objects.prefetch_related('songs__artist', 'songs__album', 'songs__genre').all()
+        serializer = PlaylistSerializer(playlists, many=True, context={'request': request})
+        return Response(serializer.data)
 
 class PlaylistDetailAPI(APIView):
     def get(self, request, playlist_id):
         try:
             playlist = Playlist.objects.get(id=playlist_id)
-            songs = playlist.songs.all()
-            serializer = SongSerializer(songs, many=True)
+            songs = playlist.songs.select_related('artist', 'album', 'genre').all()
+            serializer = SongSerializer(songs, many=True, context={'request': request})
             return Response({
                 "id": playlist.id,
                 "name": playlist.name,
-                "cover_image": playlist.cover_image.url if playlist.cover_image else None,
+                "cover_image": request.build_absolute_uri(playlist.cover_image.url) if playlist.cover_image else None,
+                "cover_image_url": request.build_absolute_uri(playlist.cover_image.url) if playlist.cover_image else None,
                 "songs": serializer.data
             })
         except Playlist.DoesNotExist:

@@ -10,6 +10,8 @@ urlpatterns = [
     path('',views.show),
     path("register/", views.register, name="register"),
     path('login/', LoginView.as_view(), name='login'),
+    path('api/auth/register/', views.register_api, name='register-api'),
+    path('api/auth/login/', views.login_api, name='login-api'),
     path('home/', views.home, name='home'), 
     path('logout/', views.custom_logout, name='logout'), 
     path('artists/', all_artists, name='all_artists'), 
@@ -59,6 +61,9 @@ urlpatterns = [
 
     
     path('api/songs/', views.song_list_api, name='song-list-api'),
+    path('api/artists/', views.artist_list_api, name='artist-list-api'),
+    path('api/albums/', views.album_list_api, name='album-list-api'),
+    path('api/genres/', views.genre_list_api, name='genre-list-api'),
     
     ]
     
