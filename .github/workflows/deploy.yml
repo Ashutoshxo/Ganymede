@@ -27,10 +27,13 @@ jobs:
               git clone https://github.com/Ashutoshxo/Ganymede.git Ganymede
               cd Ganymede
             fi
-            
-            # Create Swap memory (0 Extra Cost)
+
+            # Clean unused Docker cache/images to free space
+            docker system prune -af --volumes || true
+
+            # Create 1GB Swap memory if not exists
             if [ ! -f /swapfile ]; then
-              sudo fallocate -l 2G /swapfile
+              sudo fallocate -l 1G /swapfile || sudo dd if=/dev/zero of=/swapfile bs=1M count=1024
               sudo chmod 600 /swapfile
               sudo mkswap /swapfile
               sudo swapon /swapfile
