@@ -29,6 +29,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    env_file:
+      - .env
     environment:
       - DB_HOST=db
       - DB_NAME=antares_db
